@@ -22,29 +22,28 @@ public class HabitServiceImpl implements HabitService {
     private final EntityManager entityManager;
 
     @Override
-    public List<Habit> getAllHabits() {
+    public List<Habit> getAllHabits(String habitName, Double duration) {
 
-//        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-//        CriteriaQuery<Habit> query = cb.createQuery(Habit.class);
-//        Root<Habit> root = query.from(Habit.class);
-//
-//        List<Predicate> predicates = new ArrayList<>();
-//
-//        if(!habitName.isEmpty() && habitName!=null){
-//            predicates.add(cb.like(cb.lower(root.get("habitName")), habitName));
-//            query.select(root).where(predicates.toArray(new Predicate[0]));
-//
-//        }
-//
-//        if(duration!=null){
-//            predicates.add(cb.equal(root.get("duration"), duration));
-//            query.select(root).where(predicates.toArray(new Predicate[0]));
-//        }
-//
-//
-//        return entityManager.createQuery(query).getResultList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<Habit> query = cb.createQuery(Habit.class);
+        Root<Habit> root = query.from(Habit.class);
 
-        return habitRepository.findAll();
+        List<Predicate> predicates = new ArrayList<>();
+
+        if(habitName!=null && !habitName.isEmpty()){
+            predicates.add(cb.like(cb.lower(root.get("habitName")), habitName));
+            query.select(root).where(predicates.toArray(new Predicate[0]));
+
+        }
+
+        if(duration!=null){
+            predicates.add(cb.equal(root.get("duration"), duration));
+            query.select(root).where(predicates.toArray(new Predicate[0]));
+        }
+
+
+        return entityManager.createQuery(query).getResultList();
+
     }
 
     @Override

@@ -8,7 +8,7 @@ import java.util.List;
 @Service
 public interface HabitService {
 
-    List<Habit>getAllHabits();
+    List<Habit>getAllHabits(String habitName, Double duration);
 
     Habit addHabit(Habit habit);
 
