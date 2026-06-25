@@ -1,0 +1,1 @@
+ALTER TABLE g146.habits ALTER COLUMN habit_name TYPE text;
